@@ -26,6 +26,8 @@ public interface Plane {
      */
     String[][] symbolsInside();
 
+    int getCount();
+
     /**
      * Method that checks whether a given Position
      * (Coordinate passed between parameters) can
@@ -38,6 +40,17 @@ public interface Plane {
     boolean isCoordinateInside(Position tmp);
 
     /**
+     * Method that checks whether a symbol is already
+     * present in a certain position or not.
+     *
+     * @param c the Position.
+     * @return true if there already present Symbol , false otherwise.
+     * @throws NullPointerException if the Position c is null.
+     */
+    boolean isAlreadyPresentSymbol(Position c);
+
+
+    /**
      * Method that allows you to place a certain
      * symbol inside the game area (therefore in the matrix),
      * passing a symbol and a position as parameters.
@@ -48,16 +61,6 @@ public interface Plane {
      *                                  in this position there's already Symbol/the game is finish.
      */
     void placeSymbols(Symbol s, Position c);
-
-    /**
-     * Method that checks whether a symbol is already
-     * present in a certain position or not.
-     *
-     * @param c the Position.
-     * @return true if there already present Symbol , false otherwise.
-     * @throws NullPointerException if the Position c is null.
-     */
-    boolean isAlreadyPresentSymbol(Position c);
 
     /**
      * Fodamnetale method for the Tic-tac-toe game,

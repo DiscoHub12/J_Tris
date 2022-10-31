@@ -38,6 +38,7 @@ public class Area implements Plane {
      */
     private int count;
 
+
     /**
      * Constructor that creates a play area,
      * through which the default attributes will
@@ -50,26 +51,47 @@ public class Area implements Plane {
         this.count = 0;
     }
 
+
     @Override
     public int getBase() {
         return this.base;
     }
+
 
     @Override
     public int getHeight() {
         return this.height;
     }
 
+
     @Override
     public String[][] symbolsInside() {
         return this.symbolsInside;
     }
+
+
+    @Override
+    public int getCount() {
+        return this.count;
+    }
+
 
     @Override
     public boolean isCoordinateInside(Position tmp) {
         Objects.requireNonNull(tmp);
         return tmp.getXPoint() <= this.base && tmp.getYPoint() <= this.height;
     }
+
+
+    @Override
+    public boolean isAlreadyPresentSymbol(Position c) {
+        Objects.requireNonNull(c);
+        int x = c.getXPoint();
+        int y = c.getYPoint();
+        String symbol = this.symbolsInside[x][y];
+        return Objects.equals(symbol, "Cross") || Objects.equals(symbol, "Circle");
+    }
+
 
     @Override
     public void placeSymbols(Symbol s, Position c) {
@@ -87,42 +109,41 @@ public class Area implements Plane {
     }
 
     @Override
-    public boolean isAlreadyPresentSymbol(Position c) {
-        Objects.requireNonNull(c);
-        int x = c.getXPoint();
-        int y = c.getYPoint();
-        String symbol = this.symbolsInside[x][y];
-        return Objects.equals(symbol, "Cross") || Objects.equals(symbol, "Circle");
-    }
-
-    @Override
     public boolean isPresentStraightSymbolsV_O() {
-        String circle = "Circle";
-        String cross = "Cross";
-        //Orizontal
-        for (int i = 0; i <= this.getBase(); ) {
-            for (int j = 0; j <= this.getHeight(); j++) {
-                if (Objects.equals(this.symbolsInside[i][j], circle) || Objects.equals(this.symbolsInside[i][j], cross))
-                    i++;
-                if (i == 3)
-                    return true;
-            }
-        }
-        //Vertical
-        for (int j = 0; j <= this.getHeight(); ) {
-            for (int i = 0; i <= this.getBase(); i++) {
-                if (Objects.equals(this.symbolsInside[i][j], circle) || Objects.equals(this.symbolsInside[i][j], cross))
-                    j++;
-                if (j == 3)
-                    return true;
-            }
-        }
-        return false;
+        return isEqualsRow() || isEqualsColumn();
     }
 
     @Override
     public boolean isPresentStraightD() {
-        //Todo implementare
         return false;
     }
+
+    public boolean isEqualsRow(){
+        String tmp = "";
+       for(int i=0; i < this.getBase(); i++){
+           tmp = this.symbolsInside[i][0];
+           if(Objects.equals(tmp, "Null")){
+
+           }else if(Objects.equals(tmp, this.symbolsInside[i][1]) &&
+                   Objects.equals(tmp, this.symbolsInside[i][2])){
+               return true;
+           }
+       }
+       return false;
+    }
+
+    public boolean isEqualsColumn(){
+       String tmp = "";
+       for(int j = 0; j < this.getHeight(); j++){
+           tmp = this.symbolsInside[0][j];
+           if(Objects.equals(tmp, "Null")){
+
+           }else if(Objects.equals(tmp, this.symbolsInside[1][j]) &&
+                   Objects.equals(tmp, this.symbolsInside[2][j])){
+               return true;
+           }
+       }
+       return false;
+    }
+
 }

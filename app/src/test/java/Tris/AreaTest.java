@@ -74,7 +74,20 @@ public class AreaTest {
      */
     @Test
     public void testIsAlreadyPresentSymbols(){
-        //Todo implementare
+        Symbol s = new Symbol("Circle");
+        Symbol s1 = new Symbol("Circle");
+        Symbol s2 = new Symbol("Cross");
+        Symbol s3 = new Symbol("Cross");
+        Area a = new Area();
+        a.placeSymbols(s, new Position(0,0));
+        a.placeSymbols(s1, new Position(1,1));
+        a.placeSymbols(s2, new Position(2,2));
+        a.placeSymbols(s3, new Position(1,0));
+        assertTrue(a.isAlreadyPresentSymbol(new Position(0,0)));
+        assertTrue(a.isAlreadyPresentSymbol(new Position(1,1)));
+        assertTrue(a.isAlreadyPresentSymbol(new Position(2,2)));
+        assertTrue(a.isAlreadyPresentSymbol(new Position(1,0)));
+        assertFalse(a.isAlreadyPresentSymbol(new Position(2,0)));
     }
 
     /**
@@ -84,7 +97,21 @@ public class AreaTest {
      */
     @Test
     public void testPlaceSymbols(){
-        //Todo implementare
+        Area a = new Area();
+        Symbol s = new Symbol("Circle");
+        Symbol s1 = new Symbol("Circle");
+        Symbol s2 = new Symbol("Cross");
+        Symbol s3 = new Symbol("Cross");
+        assertThrows(NullPointerException.class, () -> a.placeSymbols(null, new Position(2,2)));
+        assertThrows(NullPointerException.class, () -> a.placeSymbols(s, null));
+        assertThrows(IllegalArgumentException.class, () -> a.placeSymbols(s, new Position(4,4)));
+        a.placeSymbols(s, new Position(0,0));
+        assertEquals(1, a.getCount());
+        assertThrows(IllegalArgumentException.class, () -> a.placeSymbols(s, new Position(0,0)));
+        a.placeSymbols(s, new Position(0,1));
+        assertEquals(2,a.getCount());
+        assertThrows(IllegalArgumentException.class, () -> a.placeSymbols(s, new Position(0,1)));
+
     }
 
     /**
@@ -95,7 +122,14 @@ public class AreaTest {
      */
     @Test
     public void testPresentStraightV_O(){
-        //Todo implementare
+        Area a = new Area();
+        Symbol s = new Symbol("Circle");
+        Symbol s1 = new Symbol("Circle");
+        Symbol s2 = new Symbol("Circle");
+        a.placeSymbols(s, new Position(0,0));
+        a.placeSymbols(s1, new Position(1,0));
+        a.placeSymbols(s2, new Position(2, 0));
+        assertTrue(a.isPresentStraightSymbolsV_O());
     }
 
     /**
@@ -106,6 +140,30 @@ public class AreaTest {
     @Test
     public void testIsPresentStraightD(){
         //Todo implementare
+    }
+
+    @Test
+    public void testIsEqualsRow(){
+        Area a = new Area();
+        Symbol s = new Symbol("Circle");
+        Symbol s1 = new Symbol("Circle");
+        Symbol s2 = new Symbol("Circle");
+        a.placeSymbols(s, new Position(0,0));
+        a.placeSymbols(s1, new Position(0,1));
+        a.placeSymbols(s2, new Position(0, 2));
+        assertTrue(a.isEqualsRow());
+    }
+
+    @Test
+    public void testIsEqualsColumn(){
+        Area a = new Area();
+        Symbol s = new Symbol("Circle");
+        Symbol s1 = new Symbol("Circle");
+        Symbol s2 = new Symbol("Circle");
+        a.placeSymbols(s, new Position(0,0));
+        a.placeSymbols(s1, new Position(1,0));
+        a.placeSymbols(s2, new Position(2, 0));
+        assertTrue(a.isEqualsColumn());
     }
 
 }
