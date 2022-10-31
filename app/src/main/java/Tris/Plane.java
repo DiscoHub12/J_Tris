@@ -33,6 +33,7 @@ public interface Plane {
      *
      * @param tmp the Position to check if is inside or not.
      * @return true if the Position is inside, false otherwise.
+     * @throws NullPointerException if Position tmp is null.
      */
     boolean isCoordinateInside(Position tmp);
 
@@ -43,6 +44,8 @@ public interface Plane {
      *
      * @param s the Symbol to place into the game Area.
      * @param c the Position for this Symbol.
+     * @throws IllegalArgumentException if the Position is not inside the plane/
+     *                                  in this position there's already Symbol/the game is finish.
      */
     void placeSymbols(Symbol s, Position c);
 
@@ -50,11 +53,11 @@ public interface Plane {
      * Method that checks whether a symbol is already
      * present in a certain position or not.
      *
-     * @param s the Symbol to check.
      * @param c the Position.
      * @return true if there already present Symbol , false otherwise.
+     * @throws NullPointerException if the Position c is null.
      */
-    boolean isAlreadyPresentSymbol(Symbol s, Position c);
+    boolean isAlreadyPresentSymbol(Position c);
 
     /**
      * Fodamnetale method for the Tic-tac-toe game,

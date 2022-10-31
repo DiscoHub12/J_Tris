@@ -77,7 +77,7 @@ public class Area implements Plane {
         Objects.requireNonNull(c);
         if (!isCoordinateInside(c))
             throw new IllegalArgumentException("Illegal position for this Symbol");
-        if (isAlreadyPresentSymbol(s, c))
+        if (isAlreadyPresentSymbol(c))
             throw new IllegalArgumentException("In this position, there's already Symbol.");
         if (count >= 9)
             throw new IllegalArgumentException("The Game is finish.");
@@ -87,11 +87,12 @@ public class Area implements Plane {
     }
 
     @Override
-    public boolean isAlreadyPresentSymbol(Symbol s, Position c) {
+    public boolean isAlreadyPresentSymbol(Position c) {
+        Objects.requireNonNull(c);
         int x = c.getXPoint();
         int y = c.getYPoint();
         String symbol = this.symbolsInside[x][y];
-        return Objects.equals(s.getSymbol(), symbol);
+        return Objects.equals(symbol, "Cross") || Objects.equals(symbol, "Circle");
     }
 
     @Override
