@@ -89,7 +89,7 @@ public class Area implements Plane {
         int x = c.getXPoint();
         int y = c.getYPoint();
         String symbol = this.symbolsInside[x][y];
-        return Objects.equals(symbol, "Cross") || Objects.equals(symbol, "Circle");
+        return Objects.equals(symbol, "X") || Objects.equals(symbol, "O");
     }
 
 
@@ -101,49 +101,62 @@ public class Area implements Plane {
             throw new IllegalArgumentException("Illegal position for this Symbol");
         if (isAlreadyPresentSymbol(c))
             throw new IllegalArgumentException("In this position, there's already Symbol.");
-        if (count >= 9)
-            throw new IllegalArgumentException("The Game is finish.");
+        if (count >= 9 && !isPresentWinner())
+            throw new IllegalArgumentException("The Game is finish. There isn't winner player.");
         this.symbolsInside[c.getXPoint()][c.getYPoint()] = s.getSymbol();
         s.setPosition(c);
         this.count++;
+        if (isPresentWinner()) {
+            throw new IllegalArgumentException("There is a Winner.");
+        }
     }
 
     @Override
-    public boolean isPresentStraightSymbolsV_O() {
-        return isEqualsRow() || isEqualsColumn();
+    public boolean isPresentWinner() {
+        return isEqualsRow() || isEqualsColumn() || isPresentStraightD();
     }
 
     @Override
     public boolean isPresentStraightD() {
+        String tmp = "";
+        tmp = this.symbolsInside[0][0];
+        if (tmp != null) {
+            if (tmp.equals(this.symbolsInside[1][1]) && tmp.equals(this.symbolsInside[2][2])) {
+                return true;
+            } else return false;
+        } else {
+            tmp = this.symbolsInside[0][2];
+            if (tmp != null) {
+                if (tmp.equals(this.symbolsInside[1][1]) && tmp.equals(this.symbolsInside[2][0])) {
+                    return true;
+                } else return false;
+            }
+        }
         return false;
     }
 
-    public boolean isEqualsRow(){
+    public boolean isEqualsRow() {
         String tmp = "";
-       for(int i=0; i < this.getBase(); i++){
-           tmp = this.symbolsInside[i][0];
-           if(Objects.equals(tmp, "Null")){
+        for (int j = 0; j < this.getHeight(); j++) {
+            tmp = this.symbolsInside[0][j];
+            if (Objects.equals(tmp, "Null")) {
 
-           }else if(Objects.equals(tmp, this.symbolsInside[i][1]) &&
-                   Objects.equals(tmp, this.symbolsInside[i][2])){
-               return true;
-           }
-       }
-       return false;
+            } else return Objects.equals(tmp, this.symbolsInside[1][j]) &&
+                    Objects.equals(tmp, this.symbolsInside[2][j]);
+        }
+        return false;
     }
 
-    public boolean isEqualsColumn(){
-       String tmp = "";
-       for(int j = 0; j < this.getHeight(); j++){
-           tmp = this.symbolsInside[0][j];
-           if(Objects.equals(tmp, "Null")){
+    public boolean isEqualsColumn() {
+        String tmp = "";
+        for (int i = 0; i < this.getBase(); i++) {
+            tmp = this.symbolsInside[i][0];
+            if (Objects.equals(tmp, "Null")) {
 
-           }else if(Objects.equals(tmp, this.symbolsInside[1][j]) &&
-                   Objects.equals(tmp, this.symbolsInside[2][j])){
-               return true;
-           }
-       }
-       return false;
+            } else return Objects.equals(tmp, this.symbolsInside[i][1]) &&
+                    Objects.equals(tmp, this.symbolsInside[i][2]);
+        }
+        return false;
     }
 
 }

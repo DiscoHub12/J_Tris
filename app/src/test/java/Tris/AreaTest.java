@@ -74,10 +74,10 @@ public class AreaTest {
      */
     @Test
     public void testIsAlreadyPresentSymbols(){
-        Symbol s = new Symbol("Circle");
-        Symbol s1 = new Symbol("Circle");
-        Symbol s2 = new Symbol("Cross");
-        Symbol s3 = new Symbol("Cross");
+        Symbol s = new Symbol("O");
+        Symbol s1 = new Symbol("O");
+        Symbol s2 = new Symbol("X");
+        Symbol s3 = new Symbol("X");
         Area a = new Area();
         a.placeSymbols(s, new Position(0,0));
         a.placeSymbols(s1, new Position(1,1));
@@ -98,10 +98,7 @@ public class AreaTest {
     @Test
     public void testPlaceSymbols(){
         Area a = new Area();
-        Symbol s = new Symbol("Circle");
-        Symbol s1 = new Symbol("Circle");
-        Symbol s2 = new Symbol("Cross");
-        Symbol s3 = new Symbol("Cross");
+        Symbol s = new Symbol("O");
         assertThrows(NullPointerException.class, () -> a.placeSymbols(null, new Position(2,2)));
         assertThrows(NullPointerException.class, () -> a.placeSymbols(s, null));
         assertThrows(IllegalArgumentException.class, () -> a.placeSymbols(s, new Position(4,4)));
@@ -115,54 +112,53 @@ public class AreaTest {
     }
 
     /**
-     * Test method that verifies the correct functioning of the
-     * method toi check if same symbols are present in a Straight line, true
-     * or horizontal, so as to return true if a particular player has won,
-     * falsde otherwise.
-     */
-    @Test
-    public void testPresentStraightV_O(){
-        Area a = new Area();
-        Symbol s = new Symbol("Circle");
-        Symbol s1 = new Symbol("Circle");
-        Symbol s2 = new Symbol("Circle");
-        a.placeSymbols(s, new Position(0,0));
-        a.placeSymbols(s1, new Position(1,0));
-        a.placeSymbols(s2, new Position(2, 0));
-        assertTrue(a.isPresentStraightSymbolsV_O());
-    }
-
-    /**
      * Test method that verifies correct operation like the above
      * method, but checks if there is a straight line of the same
      * Symbols in a horizontal line.
      */
     @Test
     public void testIsPresentStraightD(){
-        //Todo implementare
+        Area a = new Area();
+        Symbol s = new Symbol("O");
+        Symbol s1 = new Symbol("O");
+        Symbol s2 = new Symbol("O");
+        a.placeSymbols(s, new Position(0,2));
+        a.placeSymbols(s1, new Position(1,1));
+        a.placeSymbols(s2, new Position(2,0));
+        assertTrue(a.isPresentStraightD());
     }
 
+    /**
+     * Test method that checks if the same Symbols are
+     * present in the Playing area, in Straight horizontal
+     * line, so that there is a Winner.
+     */
     @Test
     public void testIsEqualsRow(){
         Area a = new Area();
-        Symbol s = new Symbol("Circle");
-        Symbol s1 = new Symbol("Circle");
-        Symbol s2 = new Symbol("Circle");
-        a.placeSymbols(s, new Position(0,0));
-        a.placeSymbols(s1, new Position(0,1));
-        a.placeSymbols(s2, new Position(0, 2));
+        Symbol s = new Symbol("O");
+        Symbol s1 = new Symbol("O");
+        Symbol s2 = new Symbol("O");
+        a.placeSymbols(s, new Position(0,2));
+        a.placeSymbols(s1, new Position(1,2));
+        a.placeSymbols(s2, new Position(2, 2));
         assertTrue(a.isEqualsRow());
     }
 
+    /**
+     * Test method that checks if the same Symbols are
+     * present in the Playing area, in Straight vertical
+     * ine, so that there is a Winner.
+     */
     @Test
     public void testIsEqualsColumn(){
         Area a = new Area();
-        Symbol s = new Symbol("Circle");
-        Symbol s1 = new Symbol("Circle");
-        Symbol s2 = new Symbol("Circle");
-        a.placeSymbols(s, new Position(0,0));
-        a.placeSymbols(s1, new Position(1,0));
-        a.placeSymbols(s2, new Position(2, 0));
+        Symbol s = new Symbol("O");
+        Symbol s1 = new Symbol("O");
+        Symbol s2 = new Symbol("O");
+        a.placeSymbols(s, new Position(1,0));
+        a.placeSymbols(s1, new Position(1,1));
+        a.placeSymbols(s2, new Position(1, 2));
         assertTrue(a.isEqualsColumn());
     }
 

@@ -21,7 +21,7 @@ public class SymbolTest {
         assertThrows(IllegalArgumentException.class, () -> new Symbol("Cerchio"));
         assertThrows(IllegalArgumentException.class, () -> new Symbol("Croce"));
         assertThrows(IllegalArgumentException.class, () -> new Symbol("Test"));
-        Symbol s = new Symbol("Circle");
+        Symbol s = new Symbol("O");
     }
 
     /**
@@ -31,11 +31,11 @@ public class SymbolTest {
      */
     @Test
     public void testGetSymbol() {
-        Symbol s = new Symbol("Circle");
-        assertEquals("Circle", s.getSymbol());
-        Symbol s1 = new Symbol("Cross");
-        assertEquals("Cross", s1.getSymbol());
-        Symbol s2 = new Symbol("Circle");
-        assertEquals("Circle", s2.getSymbol());
+        Symbol s = new Symbol("O");
+        assertEquals("O", s.getSymbol());
+        Symbol s1 = new Symbol("X");
+        assertEquals("X", s1.getSymbol());
+        Symbol s2 = new Symbol("O");
+        assertEquals("O", s2.getSymbol());
     }
 }

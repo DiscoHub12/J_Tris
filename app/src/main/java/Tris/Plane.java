@@ -71,7 +71,7 @@ public interface Plane {
      * @return true if there are equals Symbols in a Straight horizontal
      * or vertical.
      */
-    boolean isPresentStraightSymbolsV_O();
+    boolean isPresentWinner();
 
     /**
      * Method same as above method but check if there

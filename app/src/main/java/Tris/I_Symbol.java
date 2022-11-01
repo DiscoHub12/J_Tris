@@ -12,6 +12,7 @@ public interface I_Symbol {
      * Get method that returns the type of the
      * Symbol, then the String it rapresents if the
      * Symbol is Cross or Circle.
+     *
      * @return the String that rapresent the type of the Symbol.
      */
     String getSymbol();
@@ -19,6 +20,7 @@ public interface I_Symbol {
     /**
      * Get method that returns Position (Coordinate) fo
      * the Symbol within the Play Area.
+     *
      * @return the Coordinate.
      */
     Coordinate getPosition();
@@ -26,6 +28,7 @@ public interface I_Symbol {
     /**
      * Set method to set a determine Coordinate in
      * the Game Area for a Symbol.
+     *
      * @param c the Coordinate to set for this Symbol.
      * @throws NullPointerException if the Coordinate c is null.
      */

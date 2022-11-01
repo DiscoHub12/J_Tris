@@ -17,7 +17,7 @@ public class Symbol implements I_Symbol {
      * (Coordinate) of this Symbol (therefore in
      * which Position of the Plane it is located).
      */
-     private Coordinate position;
+    private Coordinate position;
 
     /**
      * Constructor that allows you to create a
@@ -27,13 +27,12 @@ public class Symbol implements I_Symbol {
      *
      * @param s the string indicating the type of Symbol, which
      *          must be either "Cross" or "Circle".
-     *
      * @throws IllegalArgumentException if the string is not the word
      *                                  "Cross" or "Circle"
      */
     public Symbol(String s) {
         Objects.requireNonNull(s);
-        if (s.equals("Circle") || s.equals("Cross")) {
+        if (s.equals("O") || s.equals("X")) {
             this.symbol = s;
         } else throw new IllegalArgumentException("This Symbol not exists.");
     }
