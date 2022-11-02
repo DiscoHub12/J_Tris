@@ -10,6 +10,7 @@ public interface Plane {
      */
     int getBase();
 
+
     /**
      * Get method that returns the height
      * of the matrix (game area).
@@ -17,6 +18,7 @@ public interface Plane {
      * @return the height of the Game Area.
      */
     int getHeight();
+
 
     /**
      * Method that returns the matrix rapresenting
@@ -26,7 +28,31 @@ public interface Plane {
      */
     String[][] symbolsInside();
 
+
+    /**
+     * Mehtod that returns a counter, useful to
+     * understand if the space of the Game Area is
+     * finished and there is no winner.
+     * @return the counter.
+     */
     int getCount();
+
+    /**
+     * Method that returns a boolean value that
+     * indicates whether a winner is present durint the
+     * game or not.
+     * @return the boolean value.
+     */
+    boolean isHasWin();
+
+
+    /**
+     * An Array of Strings by default has null
+     * values, this method rapresent the Array (matrix)
+     * with initial Symbols '-'.
+     */
+    void addDefaultSymbol();
+
 
     /**
      * Method that checks whether a given Position
@@ -38,6 +64,7 @@ public interface Plane {
      * @throws NullPointerException if Position tmp is null.
      */
     boolean isCoordinateInside(Position tmp);
+
 
     /**
      * Method that checks whether a symbol is already
@@ -62,6 +89,7 @@ public interface Plane {
      */
     void placeSymbols(Symbol s, Position c);
 
+
     /**
      * Fodamnetale method for the Tic-tac-toe game,
      * as it checks whether the same symbols are present
@@ -72,6 +100,7 @@ public interface Plane {
      * or vertical.
      */
     boolean isPresentWinner();
+
 
     /**
      * Method same as above method but check if there

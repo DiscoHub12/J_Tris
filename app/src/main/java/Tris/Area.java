@@ -38,6 +38,8 @@ public class Area implements Plane {
      */
     private int count;
 
+    private boolean hasWin;
+
 
     /**
      * Constructor that creates a play area,
@@ -48,7 +50,9 @@ public class Area implements Plane {
         this.base = 3;
         this.height = 3;
         this.symbolsInside = new String[this.base][this.height];
+        addDefaultSymbol();
         this.count = 0;
+        this.hasWin = false;
     }
 
 
@@ -75,13 +79,25 @@ public class Area implements Plane {
         return this.count;
     }
 
+    @Override
+    public boolean isHasWin() {
+        return this.hasWin;
+    }
+
+    @Override
+    public void addDefaultSymbol() {
+        for (int i = 0; i < this.getBase(); i++) {
+            for (int j = 0; j < this.getHeight(); j++) {
+                this.symbolsInside[i][j] = "-";
+            }
+        }
+    }
 
     @Override
     public boolean isCoordinateInside(Position tmp) {
         Objects.requireNonNull(tmp);
         return tmp.getXPoint() <= this.base && tmp.getYPoint() <= this.height;
     }
-
 
     @Override
     public boolean isAlreadyPresentSymbol(Position c) {
@@ -92,22 +108,23 @@ public class Area implements Plane {
         return Objects.equals(symbol, "X") || Objects.equals(symbol, "O");
     }
 
-
     @Override
     public void placeSymbols(Symbol s, Position c) {
         Objects.requireNonNull(s);
         Objects.requireNonNull(c);
+        if (count >= 9 && !isPresentWinner())
+            throw new IllegalArgumentException("The Game is finish. There isn't winner player.");
         if (!isCoordinateInside(c))
             throw new IllegalArgumentException("Illegal position for this Symbol");
         if (isAlreadyPresentSymbol(c))
             throw new IllegalArgumentException("In this position, there's already Symbol.");
-        if (count >= 9 && !isPresentWinner())
-            throw new IllegalArgumentException("The Game is finish. There isn't winner player.");
         this.symbolsInside[c.getXPoint()][c.getYPoint()] = s.getSymbol();
         s.setPosition(c);
         this.count++;
         if (isPresentWinner()) {
-            throw new IllegalArgumentException("There is a Winner.");
+            this.hasWin = true;
+            System.out.println("Player with Symbol: " + s.getSymbol() + "is the Winner.");
+            ;
         }
     }
 
@@ -158,5 +175,4 @@ public class Area implements Plane {
         }
         return false;
     }
-
 }
